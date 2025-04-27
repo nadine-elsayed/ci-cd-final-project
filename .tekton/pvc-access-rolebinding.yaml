@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: pvc-access-rolebinding
+  namespace: sn-labs-nadeenelsaye  # Make sure this matches your namespace
+subjects:
+  - kind: ServiceAccount
+    name: pipeline-sa
+    namespace: sn-labs-nadeenelsaye  # Namespace of the ServiceAccount
+roleRef:
+  kind: Role
+  name: pvc-access-role
+  apiGroup: rbac.authorization.k8s.io

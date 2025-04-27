@@ -1,0 +1,33 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: my-pipeline
+  namespace: sn-labs-nadeenelsaye
+spec:
+  workspaces:
+    - name: output
+  tasks:
+    - name: cleanup
+      taskRef:
+        name: cleanup
+      workspaces:
+        - name: source
+          workspace: output
+    - name: git-clone
+      taskRef:
+        name: git-clone
+      workspaces:
+        - name: source
+          workspace: output
+    - name: flake8-linting
+      taskRef:
+        name: flake8-linting
+      workspaces:
+        - name: source
+          workspace: output
+    - name: nose-tests
+      taskRef:
+        name: nose
+      workspaces:
+        - name: source
+          workspace: output
